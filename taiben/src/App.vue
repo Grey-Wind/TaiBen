@@ -1,17 +1,22 @@
 <template>
   <div id="app">
-    <NovelSearch />
+    <TopBar />
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import NovelSearch from './components/NovelSearch.vue';
+import TopBar from './views/TopBar.vue';
 
 export default {
+  name: 'App',
   components: {
-    NovelSearch,
+    TopBar,
   },
-};
+  mounted() {
+    document.title = '青衣台本站';
+  },
+}
 </script>
 
 <style>
