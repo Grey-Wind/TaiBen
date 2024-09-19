@@ -1,6 +1,7 @@
 <template>
   <br>
   <div>
+    <h1>搜索台本</h1>
     <input class="search-box" v-model="query" @keyup.enter="search" placeholder="搜索台本..." />
     <button class="search-button" @click="search">
       <span style="font-size: larger;">🔍</span>
@@ -54,7 +55,7 @@ export default {
 };
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
 .search-box {
   width: 700px;
   height: 30px;

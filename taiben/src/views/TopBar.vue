@@ -8,7 +8,7 @@
     </div>
 </template>
 
-<style>
+<style lang="css" scoped>
 a {
     color: #000;
     text-decoration: none;
@@ -44,13 +44,18 @@ a {
 .content h1 {
     margin-right: 20px;
     /* 元素之间的间距 */
-    font-size: 20px;
+    font-size: 25px;
     /* 调整字体大小 */
 }
 
 .content router-link {
     margin-right: 20px;
     /* 元素之间的间距 */
+}
+
+.content span {
+    color: DimGray;
+    margin-right: 15px;
 }
 </style>
 

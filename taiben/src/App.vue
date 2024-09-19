@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <TopBar />
-    <router-view></router-view>
+    <TopBar class="topbar"/>
+    <router-view class="view" />
   </div>
 </template>
 
@@ -19,7 +19,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="css">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -27,5 +27,6 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  padding-top: 10px; /* 为了给 TopBar 和 view 之间添加间隔 */
 }
 </style>
