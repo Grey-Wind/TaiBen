@@ -37,12 +37,12 @@
     </div>
 
     <ul>
-      <li v-for="novel in results" :key="novel._id">
-        <router-link :to="{ name: 'NovelDetail', query: { id: novel._id, url: novel.contentUrl } }">
-          {{ novel.title }}
+      <li v-for="result in results" :key="result._id">
+        <router-link :to="{ name: 'NovelDetail', query: { id: result._id, url: result.contentUrl } }">
+          {{ result.title }}
         </router-link>
-        <p>{{ novel.description }}</p>
-        <span>by {{ novel.author }}</span>
+        <p>{{ result.description }}</p>
+        <span>by {{ result.author }}</span>
       </li>
     </ul>
     <p v-if="results.length === 0 && query">未找到 "{{ query }}" 的结果。</p>
@@ -66,7 +66,7 @@ export default {
       if (!this.query) return; // 如果没有输入查询，则不执行搜索
 
       try {
-        const response = await axios.get(`/search?query=${this.query}&type=${this.searchType}&source=${this.searchSource}`);
+        const response = await axios.get(`/search?query=${this.query}&source=${this.searchSource}`);
         this.results = response.data;
       } catch (error) {
         console.error('搜索失败:', error);
