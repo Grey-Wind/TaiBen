@@ -66,7 +66,8 @@ export default {
       if (!this.query) return; // 如果没有输入查询，则不执行搜索
 
       try {
-        const response = await axios.get(`/search?query=${this.query}&source=${this.searchSource}`);
+        axios.defaults.withCredentials = true;
+        const response = await axios.get(`https://taiben-backend.qingyi-studio.top/search?query=${this.query}&source=${this.searchSource}`);
         this.results = response.data;
       } catch (error) {
         console.error('搜索失败:', error);
