@@ -7,19 +7,30 @@ app.use(express.json());
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
-const novelSchema = new mongoose.Schema({
+// 定义小说和推特内容的 Schema
+const contentSchema = new mongoose.Schema({
   title: String,
   author: String,
-  content: String, // 存储小说内容文件链接
+  content: String, // 存储内容链接或文本
 });
+contentSchema.index({ title: 'text', author: 'text' });
 
-novelSchema.index({ title: 'text', author: 'text' });
-const Novel = mongoose.model('Novel', novelSchema);
+// 创建两个模型，分别指向不同的集合
+const Novel = mongoose.model('Novel', contentSchema, 'novels'); // 指定 collection 为 novels
+const TwitterPost = mongoose.model('TwitterPost', contentSchema, 'tweets'); // 指定 collection 为 tweets
 
 app.get('/search', async (req, res) => {
-  const { query } = req.query;
+  const { query, source } = req.query;
+
   try {
-    const results = await Novel.find({ $text: { $search: query } });
+    let results;
+
+    if (source === 'twitter') {
+      results = await TwitterPost.find({ $text: { $search: query } });
+    } else {
+      results = await Novel.find({ $text: { $search: query } });
+    }
+
     res.json(results);
   } catch (error) {
     res.status(500).json({ error: 'An error occurred' });
