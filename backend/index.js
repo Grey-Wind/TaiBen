@@ -6,8 +6,24 @@ const mongoose = require('mongoose');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// 中间件
-app.use(cors());
+// CORS 配置
+const allowedOrigins = [
+  'https://taiben.qingyi-studio.top',
+  'http://localhost:8080', // 添加其他来源
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('不允许的来源'));
+    }
+  },
+  credentials: true, // 允许发送凭证
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // 连接数据库
