@@ -37,7 +37,13 @@
     </div>
 
     <ul>
-      <li v-for="novel in results" :key="novel._id">{{ novel.title }} by {{ novel.author }}</li>
+      <li v-for="novel in results" :key="novel._id">
+        <router-link :to="{ name: 'NovelDetail', query: { id: novel._id, url: novel.contentUrl } }">
+          {{ novel.title }}
+        </router-link>
+        <p>{{ novel.description }}</p>
+        <span>by {{ novel.author }}</span>
+      </li>
     </ul>
     <p v-if="results.length === 0 && query">未找到 "{{ query }}" 的结果。</p>
   </div>
