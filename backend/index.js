@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5000;
 // CORS 配置
 const allowedOrigins = [
   'https://taiben.qingyi-studio.top',
-  'http://localhost:8080', // 添加其他来源
+  'http://localhost:8080',
 ];
 
 const corsOptions = {
@@ -20,7 +20,7 @@ const corsOptions = {
       callback(new Error('不允许的来源'));
     }
   },
-  credentials: true, // 允许发送凭证
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
@@ -58,14 +58,27 @@ app.get('/search', async (req, res) => {
     let results;
 
     if (source === 'twitter') {
-      results = await Tweet.find({ title: new RegExp(query, 'i') });
+      results = await Tweet.find({ title: new RegExp(query, 'i') }, 'title author content tags');
     } else {
-      results = await Novel.find({ title: new RegExp(query, 'i') });
+      results = await Novel.find({ title: new RegExp(query, 'i') }, 'title author content tags');
     }
 
     res.json(results);
   } catch (error) {
     res.status(500).json({ error: '搜索失败' });
+  }
+});
+
+// NovelDetail接口
+app.get('/novel-detail/:id', async (req, res) => {
+  try {
+    const novel = await Novel.findById(req.params.id, 'title author content tags');
+    if (!novel) {
+      return res.status(404).send('未找到该小说');
+    }
+    res.json(novel);
+  } catch (error) {
+    res.status(500).send('服务器错误');
   }
 });
 

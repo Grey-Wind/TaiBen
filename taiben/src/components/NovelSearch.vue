@@ -27,32 +27,32 @@
         <h3>搜索源</h3>
         <label>
           <input type="radio" value="site" v-model="searchSource" />
-          站点数据库
+          <span>站点数据库</span>
         </label>
         <label>
           <input type="radio" value="twitter" v-model="searchSource" />
-          X (Twitter)
+          <span>X (Twitter)</span>
         </label>
       </div>
     </div>
 
-    <ul>
-      <li v-for="result in results" :key="result._id">
-        <router-link :to="{ name: 'NovelDetail', query: { id: result._id, url: result.contentUrl } }">
-          {{ result.title }}
-        </router-link>
-        <p>{{ result.description }}</p>
-        <span>by {{ result.author }}</span>
-      </li>
-    </ul>
-    <p v-if="results.length === 0 && query">未找到 "{{ query }}" 的结果。</p>
+    <div>
+        <ul>
+            <ResultItem v-for="result in results" :key="result._id" :result="result" />
+        </ul>
+        <p v-if="results.length === 0 && query">未找到 "{{ query }}" 的结果。</p>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import ResultItem from '../views/ResultItem.vue';
 
 export default {
+  components: {
+    ResultItem,
+  },
   data() {
     return {
       query: '',

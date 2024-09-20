@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import App from '@/App.vue'
 import NovelSearch from '@/components/NovelSearch.vue'
 import TaiBenLicense from '@/components/TaiBenLicense.vue'
+import NovelDetail from '@/components/NovelDetail.vue'
 
 const routes = [
   {
@@ -17,18 +18,17 @@ const routes = [
     path: '/search',
     name: 'Search',
     component: NovelSearch,
-    meta: {
-      title: '青衣台本公益搜索站 - 搜索'
-    }
   },
   {
     path: '/license',
     name: 'License',
     component: TaiBenLicense,
-    meta: {
-      title: '青衣台本公益搜索站 - 版权声明'
-    }
-  }
+  },
+  {
+    path: '/novel-detail',
+    name: 'NovelDetail',
+    component: NovelDetail, // 确保正确导入组件
+  },
 ]
 
 const router = createRouter({
